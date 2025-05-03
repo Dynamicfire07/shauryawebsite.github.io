@@ -384,6 +384,8 @@
           <div class="card exam-card" style="cursor:pointer;" onclick="showDetails(${index})">
             <div class="card-body text-center p-2">
               <h6 class="card-title mb-1">${exam.title}</h6>
+              <p class="mb-1">${new Date(exam.date).toLocaleString()}</p>
+              <p class="mb-1">${exam.details}</p>
               <p class="countdown mb-0" id="countdown-${index}">Loading...</p>
             </div>
           </div>
