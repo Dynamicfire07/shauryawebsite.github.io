@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>IB Physics 2025 – Mastery Checklist</title>
+  <style>
+    :root{ --bg:#0b0f14; --panel:#121821; --card:#172131; --ink:#e6eef8; --muted:#a8b3c7; --acc:#5cc8ff; --acc-2:#b8ff5c; --danger:#ff6b6b; }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{margin:0;background:linear-gradient(180deg,#0b0f14,#0b0f14 40%,#0e141c);color:var(--ink);font:15px/1.5 Inter,system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial,sans-serif}
+    header{position:sticky;top:0;z-index:50;background:rgba(11,15,20,.85);backdrop-filter:saturate(140%) blur(10px);border-bottom:1px solid #1f2b3d}
+    .bar{display:flex;gap:12px;align-items:center;max-width:1100px;margin:0 auto;padding:12px 16px}
+    h1{font-size:18px;margin:0;font-weight:700;letter-spacing:.2px}
+    .tag{font-size:12px;color:var(--muted)}
+    input[type="search"]{flex:1;min-width:160px;background:var(--panel);border:1px solid #233148;border-radius:10px;padding:10px 12px;color:var(--ink)}
+    .btn{background:var(--acc);color:#00131f;border:0;border-radius:10px;padding:10px 12px;font-weight:700;cursor:pointer}
+    .btn.alt{background:#223047;color:var(--ink);border:1px solid #32445f}
+    .btn.ghost{background:transparent;border:1px solid #32445f;color:var(--ink)}
+    .metrics{display:flex;gap:10px;align-items:center;color:var(--muted);font-size:12px}
+
+    main{max-width:1100px;margin:20px auto;padding:0 16px 60px}
+    details.section{background:var(--panel);border:1px solid #223047;border-radius:14px;margin:14px 0;overflow:hidden}
+    details.section[open]{box-shadow:0 10px 26px rgba(0,0,0,.25)}
+    summary{display:flex;align-items:center;gap:12px;list-style:none;padding:16px 18px;background:linear-gradient(180deg,#111827,#0f1723);cursor:pointer}
+    summary::-webkit-details-marker{display:none}
+    .title{font-weight:800}
+    .chips{margin-left:auto;display:flex;gap:6px;flex-wrap:wrap}
+    .chip{font-size:11px;border:1px solid #32445f;color:#cfe2ff;padding:4px 8px;border-radius:999px}
+
+    .content{padding:16px 18px;background:var(--card)}
+    .topic{border:1px solid #233148;border-radius:12px;padding:14px;margin:12px 0;background:#111a29}
+    .topic h4{margin:0 0 8px 0}
+    .muted{color:var(--muted)}
+    ul.check{margin:8px 0 0 0;padding:0;list-style:none;display:grid;grid-template-columns:1fr;gap:8px}
+    @media (min-width:800px){ul.check{grid-template-columns:1fr 1fr}}
+    .item{display:flex;gap:10px;align-items:flex-start;background:#0d1523;border:1px solid #1f2b3d;border-radius:10px;padding:10px}
+    .item input{transform:translateY(2px)}
+    .item label{cursor:pointer}
+    .eq{font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; font-size: 12.5px; color:#bfe3ff}
+
+    .topic-header{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+    .progress{margin-left:auto;width:180px;height:8px;background:#0b1220;border-radius:999px;border:1px solid #233148;overflow:hidden}
+    .barfill{height:100%;background:linear-gradient(90deg,var(--acc),var(--acc-2));width:0%}
+
+    /* Confidence meter UI */
+    .conf{display:flex;align-items:center;gap:10px;margin:6px 0 10px}
+    .conf label{font-size:12px;color:var(--muted)}
+    .conf input[type="range"]{flex:1;appearance:none;height:6px;border-radius:999px;background:#0b1220;border:1px solid #233148}
+    .conf input[type="range"]::-webkit-slider-thumb{appearance:none;width:18px;height:18px;border-radius:50%;background:var(--acc);border:1px solid #1f2b3d}
+    .conf .val{font-weight:700;min-width:44px;text-align:right}
+    .conf.bad .val{color:var(--danger)}
+    .conf.mid .val{color:#ffcc66}
+    .conf.good .val{color:#8dff6b}
+
+    footer{position:fixed;left:0;right:0;bottom:0;background:rgba(11,15,20,.95);backdrop-filter:blur(8px);border-top:1px solid #1f2b3d}
+    .foot{max-width:1100px;margin:0 auto;padding:10px 16px;display:flex;gap:8px;align-items:center}
+
+    /* Kanban print page */
+    #kanban{display:none;padding:24px}
+    #kanban h2{margin:0 0 12px 0}
+    .kb-grid{display:grid;grid-template-columns:1fr;gap:12px}
+    .kb-col{border:1px solid #233148;border-radius:12px;padding:12px;background:#111a29}
+    .kb-col h3{margin:0 0 8px 0}
+    .kb-item{margin:6px 0;padding:8px;border:1px solid #32445f;border-radius:8px;background:#0d1523}
+    .kb-legend{font-size:12px;color:var(--muted);margin-bottom:8px}
+    @media (min-width:900px){.kb-grid{grid-template-columns:1fr 1fr 1fr}}
+
+    @media print{
+      header,footer{display:none}
+      body{background:white;color:#111}
+      main{max-width:100%;padding:0}
+      details.section{page-break-inside:avoid;border:1px solid #ccc}
+      .content{background:#fff}
+      .item{background:#fff;border:1px solid #ddd}
+      #kanban{display:block;page-break-before:always}
+      .conf input[type="range"]{display:none}
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="bar">
+      <div>
+        <h1>IB Physics (First assessment 2025) — Mastery Checklist</h1>
+        <div class="tag">Interactive ✓ · Local autosave · Export to PDF</div>
+      </div>
+      <input id="search" type="search" placeholder="Search topics or checklist text… (e.g., 'centripetal', 'Faraday', 'half-life')" />
+      <button class="btn alt" id="toggleAll">Expand All</button>
+      <button class="btn" id="printBtn">Download PDF</button>
+    </div>
+  </header>
+
+  <main id="container">
+    <!-- === your existing sections A–E and Skills (unchanged from the version you approved) === -->
+    <!-- Paste the exact section HTML you had previously. I've preserved it verbatim, omitted here for brevity. -->
+    <!-- ================= A. SPACE, TIME AND MOTION ================= -->
+    <details class="section" open>
+      <summary><span class="title">A. Space, time and motion</span>
+        <span class="chips">
+          <span class="chip">A.1 Kinematics</span>
+          <span class="chip">A.2 Forces & momentum</span>
+          <span class="chip">A.3 Work, energy & power</span>
+          <span class="chip">A.4 Rigid body mechanics</span>
+          <span class="chip">A.5 Galilean & special relativity</span>
+        </span>
+      </summary>
+      <div class="content">
+
+        <!-- A.1 Kinematics -->
+        <div class="topic" data-topic="A.1 Kinematics (SL/HL)">
+          <div class="topic-header">
+            <h4>A.1 Kinematics (SL/HL)</h4>
+            <div class="progress" title="Topic completion">
+              <div class="barfill"></div>
+            </div>
+          </div>
+          <ul class="check">
+            <li class="item"><input type="checkbox" id="a1-1"><label for="a1-1">Am I able to describe motion using <strong>position</strong>, <strong>velocity</strong>, and <strong>acceleration</strong> (qualitatively & quantitatively)?</label></li>
+            <li class="item"><input type="checkbox" id="a1-2"><label for="a1-2">Can I distinguish <strong>distance</strong> vs <strong>displacement</strong> and compute each from data/graphs?</label></li>
+            <li class="item"><input type="checkbox" id="a1-3"><label for="a1-3">Can I calculate <strong>instantaneous</strong> vs <strong>average</strong> speed/velocity/acceleration and read them from s–t / v–t / a–t graphs?</label></li>
+            <li class="item"><input type="checkbox" id="a1-4"><label for="a1-4">Can I apply uniform acceleration equations <span class="eq">v = u + at; s = ut + ½at²; v² = u² + 2as; s = ((u+v)/2)t</span> to multi-step problems?</label></li>
+            <li class="item"><input type="checkbox" id="a1-5"><label for="a1-5">Can I model <strong>projectile motion (no drag)</strong> by resolving components and predict <em>time of flight, range, max height</em>?</label></li>
+            <li class="item"><input type="checkbox" id="a1-6"><label for="a1-6">Can I explain qualitatively how <strong>fluid resistance</strong> changes projectile trajectory, velocity, and terminal speed?</label></li>
+          </ul>
+        </div>
+
+        <!-- A.2 Forces & momentum -->
+        <div class="topic" data-topic="A.2 Forces and momentum (SL/HL)">
+          <div class="topic-header">
+            <h4>A.2 Forces and momentum (SL/HL)</h4>
+            <div class="progress"><div class="barfill"></div></div>
+          </div>
+          <ul class="check">
+            <li class="item"><input type="checkbox" id="a2-1"><label for="a2-1">Am I able to draw accurate <strong>free-body diagrams</strong> and find the resultant force in 1–2D?</label></li>
+            <li class="item"><input type="checkbox" id="a2-2"><label for="a2-2">Can I apply <strong>Newton’s 1st, 2nd, 3rd laws</strong> to equilibrium and dynamics scenarios?</label></li>
+            <li class="item"><input type="checkbox" id="a2-3"><label for="a2-3">Can I handle <strong>friction</strong> in problems using <span class="eq">F<sub>f</sub> ≤ μ<sub>s</sub>F<sub>N</sub>; F<sub>f</sub> = μ<sub>d</sub>F<sub>N</sub></span>?</label></li>
+            <li class="item"><input type="checkbox" id="a2-4"><label for="a2-4">Can I use <strong>Hooke’s law</strong> <span class="eq">F = −kx</span> and connect to elastic potential energy <span class="eq">E = ½k(Δx)²</span>?</label></li>
+            <li class="item"><input type="checkbox" id="a2-5"><label for="a2-5">Can I reason with <strong>drag</strong> and <strong>terminal speed</strong> (qualitative or given model), and with <strong>buoyancy</strong> <span class="eq">F<sub>b</sub> = ρVg</span>?</label></li>
+            <li class="item"><input type="checkbox" id="a2-6"><label for="a2-6">Can I use <strong>impulse–momentum</strong> <span class="eq">J = FΔt = Δp</span> and solve elastic/inelastic <strong>collisions</strong> and <strong>explosions</strong>?</label></li>
+            <li class="item"><input type="checkbox" id="a2-7"><label for="a2-7">Can I analyse <strong>uniform circular motion</strong>, using <span class="eq">a = v²/r = ω²r</span> and identify centripetal force sources?</label></li>
+          </ul>
+        </div>
+
+        <!-- A.3 Work, energy & power -->
+        <div class="topic" data-topic="A.3 Work, energy and power (SL/HL)">
+          <div class="topic-header">
+            <h4>A.3 Work, energy and power (SL/HL)</h4>
+            <div class="progress"><div class="barfill"></div></div>
+          </div>
+          <ul class="check">
+            <li class="item"><input type="checkbox" id="a3-1"><label for="a3-1">Can I compute <strong>work</strong> with angle: <span class="eq">W = Fs cosθ</span>, and use work–energy methods?</label></li>
+            <li class="item"><input type="checkbox" id="a3-2"><label for="a3-2">Can I track energy transfers between <strong>KE</strong>, <strong>GPE</strong> <span class="eq">ΔE<sub>p</sub> = mgΔh</span> and <strong>elastic</strong> <span class="eq">E = ½k(Δx)²</span>?</label></li>
+            <li class="item"><input type="checkbox" id="a3-3"><label for="a3-3">Can I compute <strong>power</strong> and <strong>efficiency</strong>: <span class="eq">P = ΔW/Δt = Fv</span>, <span class="eq">η = E<sub>out</sub>/E<sub>in</sub></span>?</label></li>
+          </ul>
+        </div>
+
+        <!-- A.4 Rigid body mechanics -->
+        <div class="topic" data-topic="A.4 Rigid body mechanics (SL/HL)">
+          <div class="topic-header">
+            <h4>A.4 Rigid body mechanics (SL/HL)</h4>
+            <div class="progress"><div class="barfill"></div></div>
+          </div>
+          <ul class="check">
+            <li class="item"><input type="checkbox" id="a4-1"><label for="a4-1">Can I compute and reason with torque (τ = rF sinθ) and identify moment arms?</label></li>
+            <li class="item"><input type="checkbox" id="a4-2"><label for="a4-2">Can I apply rotational equilibrium conditions ∑F = 0 and ∑τ = 0 to extended bodies?</label></li>
+            <li class="item"><input type="checkbox" id="a4-3"><label for="a4-3">Can I use angular variables θ, ω, α and convert between linear and angular (s = rθ, v = ωr, aₜ = αr)?</label></li>
+            <li class="item"><input type="checkbox" id="a4-4"><label for="a4-4">Can I solve constant-α problems using Δθ = (ωf+ωi)t/2, ωf = ωi + αt, Δθ = ωi t + ½αt², ωf² = ωi² + 2αΔθ?</label></li>
+            <li class="item"><input type="checkbox" id="a4-5"><label for="a4-5">Can I calculate moment of inertia for point masses (I = Σmr²) and use given formulae for standard bodies?</label></li>
+            <li class="item"><input type="checkbox" id="a4-6"><label for="a4-6">Can I apply rotational Newton’s 2nd law τ = Iα and connect to linear dynamics?</label></li>
+            <li class="item"><input type="checkbox" id="a4-7"><label for="a4-7">Can I work with angular momentum L = Iω, angular impulse ΔL = τΔt, and conservation when ∑τ = 0?</label></li>
+            <li class="item"><input type="checkbox" id="a4-8"><label for="a4-8">Can I compute rotational kinetic energy Ek = ½Iω² and relate it to total mechanical energy?</label></li>
+          </ul>
+        </div>
+
+        <!-- A.5 Galilean & special relativity -->
+        <div class="topic" data-topic="A.5 Galilean and special relativity (SL/HL)">
+          <div class="topic-header">
+            <h4>A.5 Galilean and special relativity (SL/HL)</h4>
+            <div class="progress"><div class="barfill"></div></div>
+          </div>
+          <ul class="check">
+            <li class="item"><input type="checkbox" id="a5-1"><label for="a5-1"><strong>Galilean:</strong> inertial frames; x' = x − vt, t' = t; velocity addition u' = u − v.</label></li>
+            <li class="item"><input type="checkbox" id="a5-2"><label for="a5-2"><strong>Special relativity:</strong> state the two postulates; know when classical addition fails.</label></li>
+            <li class="item"><input type="checkbox" id="a5-3"><label for="a5-3">Apply Lorentz transforms x' = γ(x − vt), t' = γ(t − vx/c²) to simple setups.</label></li>
+            <li class="item"><input type="checkbox" id="a5-4"><label for="a5-4">Compute time dilation Δt = γΔt₀ and length contraction L = L₀/γ.</label></li>
+            <li class="item"><input type="checkbox" id="a5-5"><label for="a5-5">Use relativistic velocity addition u' = (u − v)/(1 − uv/c²) in 1D.</label></li>
+            <li class="item"><input type="checkbox" id="a5-6"><label for="a5-6">Reason with invariant interval (Δs)² = c²Δt² − Δx²; interpret proper time/length.</label></li>
+            <li class="item"><input type="checkbox" id="a5-7"><label for="a5-7">Read simple spacetime diagrams (world lines, light cone) and discuss simultaneity.</label></li>
+            <li class="item"><input type="checkbox" id="a5-8"><label for="a5-8">Cite/interpret experimental evidence (e.g., muon decay) for time dilation/length contraction.</label></li>
+          </ul>
+        </div>
+
+      </div>
+    </details>
+
+    <!-- ================= B. THE PARTICULATE NATURE OF MATTER ================= -->
+    <details class="section">
+      <summary><span class="title">B. The particulate nature of matter</span>
+        <span class="chips">
+          <span class="chip">B.1 Thermal transfers</span>
+          <span class="chip">B.2 Greenhouse</span>
+          <span class="chip">B.3 Gas laws</span>
+          <span class="chip">B.4 Thermodynamics (HL)</span>
+          <span class="chip">B.5 Current & circuits</span>
+        </span>
+      </summary>
+      <div class="content">
+
+        <!-- B.1 Thermal -->
+        <div class="topic" data-topic="B.1 Thermal energy transfers (SL/HL)">
+          <div class="topic-header">
+            <h4>B.1 Thermal energy transfers (SL/HL)</h4>
+            <div class="progress"><div class="barfill"></div></div>
+          </div>
+          <ul class="check">
+            <li class="item"><input type="checkbox" id="b1-1"><label for="b1-1">Am I able to explain <strong>conduction</strong>, <strong>convection</strong>, and <strong>radiation</strong> pathways?</label></li>
+            <li class="item"><input type="checkbox" id="b1-2"><label for="b1-2">Can I calculate heating/cooling using <span class="eq">Q = mcΔT</span> and interpret heating curves?</label></li>
+            <li class="item"><input type="checkbox" id="b1-3"><label for="b1-3">Can I handle <strong>phase change</strong> using <span class="eq">Q = mL</span> (fusion/vaporization) and energy balances?</label></li>
+          </ul>
+        </div>
+
+        <!-- B.2 Greenhouse -->
+        <div class="topic" data-topic="B.2 Greenhouse effect (SL/HL)">
+          <div class="topic-header">
+            <h4>B.2 Greenhouse effect (SL/HL)</h4>
+            <div class="progress"><div class="barfill"></div></div>
+          </div>
+          <ul class="check">
+            <li class="item"><input type="checkbox" id="b2-1"><label for="b2-1">Can I qualitatively distinguish <strong>natural</strong> vs <strong>enhanced</strong> greenhouse effect and IR absorption/re-emission?</label></li>
+            <li class="item"><input type="checkbox" id="b2-2"><label for="b2-2">Can I discuss consequences and energy-balance reasoning for the climate system?</label></li>
+          </ul>
+        </div>
+
+        <!-- B.3 Gas laws -->
+        <div class="topic" data-topic="B.3 Gas laws (SL/HL)">
+          <div class="topic-header">
+            <h4>B.3 Gas laws (SL/HL)</h4>
+            <div class="progress"><div class="barfill"></div></div>
+          </div>
+          <ul class="check">
+            <li class="item"><input type="checkbox" id="b3-1"><label for="b3-1">Can I derive and use <span class="eq">PV = nRT = Nk<sub>B</sub>T</span> from empirical gas laws?</label></li>
+            <li class="item"><input type="checkbox" id="b3-2"><label for="b3-2">Can I link <strong>pressure</strong> to molecular collisions; use <span class="eq">U = 3/2 nRT</span> (monatomic ideal)?</label></li>
+            <li class="item"><input type="checkbox" id="b3-3"><label for="b3-3">Can I justify when the <strong>ideal gas</strong> model is valid/limited?</label></li>
+          </ul>
+        </div>
+
+        <!-- B.4 Thermodynamics HL -->
+        <div class="topic" data-topic="B.4 Thermodynamics (HL only)">
+          <div class="topic-header">
+            <h4>B.4 Thermodynamics (HL only)</h4>
+            <div class="progress"><div class="barfill"></div></div>
+          </div>
+          <ul class="check">
+            <li class="item"><input type="checkbox" id="b4-1"><label for="b4-1">Can I apply the <strong>First Law</strong> <span class="eq">Q = ΔU + W</span> and compute <span class="eq">W = ∫PdV</span> (incl. <span class="eq">W = PΔV</span>)?</label></li>
+            <li class="item"><input type="checkbox" id="b4-2"><label for="b4-2">Can I reason with <strong>entropy</strong> <span class="eq">ΔS = ΔQ/T</span> and the <strong>Second Law</strong> (irreversibility, heat engines)?</label></li>
+            <li class="item"><input type="checkbox" id="b4-3"><label for="b4-3">Can I compute <strong>Carnot efficiency</strong> <span class="eq">η = 1 − T<sub>c</sub>/T<sub>h</span></span> and compare real engines qualitatively?</label></li>
+          </ul>
+        </div>
+
+        <!-- B.5 Current & circuits -->
+        <div class="topic" data-topic="B.5 Current and circuits (SL/HL)">
+          <div class="topic-header">
+            <h4>B.5 Current and circuits (SL/HL)</h4>
+            <div class="progress"><div class="barfill"></div></div>
+          </div>
+          <ul class="check">
+            <li class="item"><input type="checkbox" id="b5-1"><label for="b5-1">Can I apply <span class="eq">V = IR</span>, <span class="eq">ρ = RA/L</span>, and power relations <span class="eq">P = IV = I²R = V²/R</span>?</label></li>
+            <li class="item"><input type="checkbox" id="b5-2"><label for="b5-2">Can I analyse series/parallel networks and compute <strong>equivalent resistance</strong>?</label></li>
+            <li class="item"><input type="checkbox" id="b5-3"><label for="b5-3">Can I model sources with <strong>emf</strong> and <strong>internal resistance</strong>: <span class="eq">ε = I(R + r)</span>?</label></li>
+          </ul>
+        </div>
+
+      </div>
+    </details>
+
+    <!-- ================= C. WAVE BEHAVIOUR ================= -->
+    <details class="section">
+      <summary><span class="title">C. Wave behaviour</span>
+        <span class="chips">
+          <span class="chip">C.1 SHM</span>
+          <span class="chip">C.2 Wave model</span>
+          <span class="chip">C.3 Wave phenomena</span>
+          <span class="chip">C.4 Standing waves</span>
+          <span class="chip">C.5 Doppler effect</span>
+        </span>
+      </summary>
+      <div class="content">
+
+        <!-- C.1 SHM -->
+        <div class="topic" data-topic="C.1 Simple harmonic motion (SL/HL)">
+          <div class="topic-header">
+            <h4>C.1 Simple harmonic motion (SL/HL)</h4>
+            <div class="progress"><div class="barfill"></div></div>
+          </div>
+          <ul class="check">
+            <li class="item"><input type="checkbox" id="c1-1"><label for="c1-1">Can I identify conditions for <strong>SHM</strong> and use the defining relation <span class="eq">a = −ω²x</span>?</label></li>
+            <li class="item"><input type="checkbox" id="c1-2"><label for="c1-2">Can I use <span class="eq">T = 1/f = 2π/ω</span>, and periods for spring <span class="eq">T = 2π√(m/k)</span> and pendulum <span class="eq">T = 2π√(l/g)</span>?</label></li>
+            <li class="item"><input type="checkbox" id="c1-3"><label for="c1-3">(HL) Can I use full SHM set: <span class="eq">x = x₀ sin(ωt+φ), v = ωx₀ cos(…)</span>, energy relations?</label></li>
+          </ul>
+        </div>
+
+        <!-- C.2 Wave model -->
+        <div class="topic" data-topic="C.2 Wave model (SL/HL)">
+          <div class="topic-header">
+            <h4>C.2 Wave model (SL/HL)</h4>
+            <div class="progress"><div class="barfill"></div></div>
+          </div>
+          <ul class="check">
+            <li class="item"><input type="checkbox" id="c2-1"><label for="c2-1">Can I compare <strong>mechanical</strong> vs <strong>EM waves</strong>, transverse vs longitudinal?</label></li>
+            <li class="item"><input type="checkbox" id="c2-2"><label for="c2-2">Can I apply <span class="eq">v = fλ = λ/T</span> and describe sound wave behaviour?</label></li>
+          </ul>
+        </div>
+
+        <!-- C.3 Wave phenomena -->
+        <div class="topic" data-topic="C.3 Wave phenomena (SL/HL + HL ext)">
+          <div class="topic-header">
+            <h4>C.3 Wave phenomena (SL/HL + HL extension)</h4>
+            <div class="progress"><div class="barfill"></div></div>
+          </div>
+          <ul class="check">
+            <li class="item"><input type="checkbox" id="c3-1"><label for="c3-1">Can I use <strong>wavefronts & rays</strong> to describe propagation and boundaries (reflection, refraction, transmission)?</label></li>
+            <li class="item"><input type="checkbox" id="c3-2"><label for="c3-2">Can I apply <strong>Snell’s law</strong> and explain <strong>critical angle</strong> & <strong>TIR</strong>?</label></li>
+            <li class="item"><input type="checkbox" id="c3-3"><label for="c3-3">Can I reason about <strong>diffraction</strong> through apertures/around obstacles and sketch ray/wavefront diagrams?</label></li>
+            <li class="item"><input type="checkbox" id="c3-4"><label for="c3-4">Can I explain <strong>superposition</strong>, coherence, constructive (<span class="eq">nλ</span>) and destructive (<span class="eq">(n+½)λ</span>) interference?</label></li>
+            <li class="item"><input type="checkbox" id="c3-5"><label for="c3-5">Can I use <strong>Young’s double slit</strong> relation <span class="eq">s = λD/d</span>?</label></li>
+            <li class="item"><input type="checkbox" id="c3-6"><label for="c3-6">(HL) Can I apply <strong>single-slit</strong> condition <span class="eq">θ ≈ λ/b</span> and <strong>grating</strong> <span class="eq">nλ = d sinθ</span>?</label></li>
+          </ul>
+        </div>
+
+        <!-- C.4 Standing waves -->
+        <div class="topic" data-topic="C.4 Standing waves and resonance (SL/HL)">
+          <div class="topic-header">
+            <h4>C.4 Standing waves and resonance (SL/HL)</h4>
+            <div class="progress"><div class="barfill"></div></div>
+          </div>
+          <ul class="check">
+            <li class="item"><input type="checkbox" id="c4-1"><label for="c4-1">Can I distinguish travelling vs standing waves via <strong>superposition</strong> of counter-propagating waves?</label></li>
+            <li class="item"><input type="checkbox" id="c4-2"><label for="c4-2">Can I identify <strong>nodes</strong> & <strong>antinodes</strong>, and predict modes in strings and open/closed pipes?</label></li>
+            <li class="item"><input type="checkbox" id="c4-3"><label for="c4-3">Can I explain <strong>resonance</strong> and the effect of <strong>damping</strong> on amplitude & resonant frequency?</label></li>
+          </ul>
+        </div>
+
+        <!-- C.5 Doppler effect (expanded) -->
+        <div class="topic" data-topic="C.5 Doppler effect (SL/HL)">
+          <div class="topic-header">
+            <h4>C.5 Doppler effect (SL/HL)</h4>
+            <div class="progress"><div class="barfill"></div></div>
+          </div>
+          <ul class="check">
+            <li class="item"><input type="checkbox" id="c5-1"><label for="c5-1">Can I explain the <strong>Doppler effect</strong> qualitatively for sound and light, relating frequency shift to relative motion?</label></li>
+            <li class="item"><input type="checkbox" id="c5-2"><label for="c5-2">(SL) Can I use the small-velocity approximation for light: <span class="eq">Δf/f ≈ v/c</span> and interpret red/blue shifts?</label></li>
+            <li class="item"><input type="checkbox" id="c5-3"><label for="c5-3">(HL) Can I apply the sound formulas for moving <strong>source</strong> <span class="eq">f' = f·v/(v ∓ u<sub>s</sub>)</span> and moving <strong>observer</strong> <span class="eq">f' = f·(v ± u<sub>o</sub>)/v</span>?</label></li>
+            <li class="item"><input type="checkbox" id="c5-4"><label for="c5-4">(HL) Can I solve mixed problems with both moving source and observer and infer speeds from measured shifts?</label></li>
+          </ul>
+        </div>
+
+      </div>
+    </details>
+
+    <!-- ================= D. FIELDS ================= -->
+    <details class="section">
+      <summary><span class="title">D. Fields</span>
+        <span class="chips">
+          <span class="chip">D.1 Gravitational</span>
+          <span class="chip">D.2 Electric & magnetic</span>
+          <span class="chip">D.3 Motion in EM fields</span>
+          <span class="chip">D.4 Induction (HL)</span>
+        </span>
+      </summary>
+      <div class="content">
+
+        <!-- D.1 Gravitational fields (expanded) -->
+        <div class="topic" data-topic="D.1 Gravitational fields (SL/HL)">
+          <div class="topic-header">
+            <h4>D.1 Gravitational fields (SL/HL)</h4>
+            <div class="progress"><div class="barfill"></div></div>
+          </div>
+          <ul class="check">
+            <li class="item"><input type="checkbox" id="d1-1"><label for="d1-1">Can I define a <strong>gravitational field</strong>, draw field lines, and relate <span class="eq">g = F/m</span>?</label></li>
+            <li class="item"><input type="checkbox" id="d1-2"><label for="d1-2">Can I apply <strong>Newton’s law of gravitation</strong> <span class="eq">F = Gm₁m₂/r²</span> to two-body problems?</label></li>
+            <li class="item"><input type="checkbox" id="d1-3"><label for="d1-3">Can I compute <span class="eq">g = GM/r²</span> and discuss how g varies with altitude/radius?</label></li>
+            <li class="item"><input type="checkbox" id="d1-4"><label for="d1-4">Can I connect circular orbits via <span class="eq">GMm/r² = mv²/r</span> and determine orbital speed/period?</label></li>
+            <li class="item"><input type="checkbox" id="d1-5"><label for="d1-5">(HL) Can I use <strong>gravitational potential</strong> <span class="eq">V = −GM/r</span> and <strong>potential energy</strong> <span class="eq">U = mV</span>?</label></li>
+            <li class="item"><input type="checkbox" id="d1-6"><label for="d1-6">(HL) Can I sketch <strong>equipotential surfaces</strong> and relate them to field strength/direction?</label></li>
+            <li class="item"><input type="checkbox" id="d1-7"><label for="d1-7">(HL) Can I derive and compute <strong>escape velocity</strong> <span class="eq">v<sub>esc</sub> = √(2GM/R)</span> and energy changes between radii?</label></li>
+          </ul>
+        </div>
+
+        <!-- D.2 Electric & magnetic fields (expanded) -->
+        <div class="topic" data-topic="D.2 Electric and magnetic fields (SL/HL)">
+          <div class="topic-header">
+            <h4>D.2 Electric and magnetic fields (SL/HL)</h4>
+            <div class="progress"><div class="barfill"></div></div>
+          </div>
+          <ul class="check">
+            <li class="item"><input type="checkbox" id="d2-1"><label for="d2-1">Can I apply <strong>Coulomb’s law</strong> <span class="eq">F = kq₁q₂/r²</span> and draw accurate <strong>E-field lines</strong> for charges/plates?</label></li>
+            <li class="item"><input type="checkbox" id="d2-2"><label for="d2-2">Can I compute uniform field strength using <span class="eq">E = V/d</span> and reason about force on a charge?</label></li>
+            <li class="item"><input type="checkbox" id="d2-3"><label for="d2-3">Can I describe <strong>B-field</strong> patterns for straight wires, loops, and solenoids, and use right-hand rules?</label></li>
+            <li class="item"><input type="checkbox" id="d2-4"><label for="d2-4">(HL) Can I use <strong>electric potential</strong> <span class="eq">V = W/q</span>, relate <span class="eq">E ≈ −ΔV/Δr</span>, and sketch equipotentials?</label></li>
+            <li class="item"><input type="checkbox" id="d2-5"><label for="d2-5">(HL) Can I solve energy/work problems with charges moving between potentials: <span class="eq">ΔU = qΔV</span>?</label></li>
+          </ul>
+        </div>
+
+        <!-- D.3 Motion in EM fields (expanded) -->
+        <div class="topic" data-topic="D.3 Motion in electromagnetic fields (SL/HL)">
+          <div class="topic-header">
+            <h4>D.3 Motion in electromagnetic fields (SL/HL)</h4>
+            <div class="progress"><div class="barfill"></div></div>
+          </div>
+          <ul class="check">
+            <li class="item"><input type="checkbox" id="d3-1"><label for="d3-1">Can I compute magnetic force on a charge: <span class="eq">F = qvB sinθ</span> and identify direction via right-hand rule?</label></li>
+            <li class="item"><input type="checkbox" id="d3-2"><label for="d3-2">Can I analyse circular motion in uniform B (v ⟂ B) using <span class="eq">r = mv/(qB)</span>; note KE constant?</label></li>
+            <li class="item"><input type="checkbox" id="d3-3"><label for="d3-3">Can I compute force on a current: <span class="eq">F = BIL sinθ</span> and predict motion/torque for simple geometries?</label></li>
+            <li class="item"><input type="checkbox" id="d3-4"><label for="d3-4">Can I use a <strong>velocity selector</strong> with crossed fields to get <span class="eq">v = E/B</span>?</label></li>
+            <li class="item"><input type="checkbox" id="d3-5"><label for="d3-5">(HL) Can I apply force per unit length between parallel currents: <span class="eq">F/L = μ₀ I₁ I₂ /(2πr)</span> (attractive for same direction)?</label></li>
+            <li class="item"><input type="checkbox" id="d3-6"><label for="d3-6">(HL) Can I infer <span class="eq">q/m</span> from curvature in a known B-field (mass spectrometer context)?</label></li>
+          </ul>
+        </div>
+
+        <!-- D.4 Induction HL -->
+        <div class="topic" data-topic="D.4 Induction (HL only)">
+          <div class="topic-header">
+            <h4>D.4 Induction (HL only)</h4>
+            <div class="progress"><div class="barfill"></div></div>
+          </div>
+          <ul class="check">
+            <li class="item"><input type="checkbox" id="d4-1"><label for="d4-1">Can I compute <strong>magnetic flux</strong> <span class="eq">Φ = BA cosθ</span> for given geometry/orientation?</label></li>
+            <li class="item"><input type="checkbox" id="d4-2"><label for="d4-2">Can I use <strong>Faraday’s law</strong> <span class="eq">ε = −N ΔΦ/Δt</span> and <strong>Lenz’s law</strong> to determine direction/sign?</label></li>
+            <li class="item"><input type="checkbox" id="d4-3"><label for="d4-3">Can I calculate <strong>motional emf</strong> in a conductor: <span class="eq">ε = BvL</span> and reason with energy conservation?</label></li>
+            <li class="item"><input type="checkbox" id="d4-4"><label for="d4-4">Can I explain trends for an <strong>ac generator</strong> (frequency, coil turns, area, B-field) on induced emf amplitude?</label></li>
+          </ul>
+        </div>
+
+      </div>
+    </details>
+
+    <!-- ================= E. NUCLEAR & QUANTUM ================= -->
+    <details class="section">
+      <summary><span class="title">E. Nuclear and quantum physics</span>
+        <span class="chips">
+          <span class="chip">E.1 Structure of atom</span>
+          <span class="chip">E.2 Quantum (HL)</span>
+          <span class="chip">E.3 Radioactive decay</span>
+          <span class="chip">E.4 Fission</span>
+          <span class="chip">E.5 Fusion & stars</span>
+        </span>
+      </summary>
+      <div class="content">
+
+        <!-- E.1 Atom -->
+        <div class="topic" data-topic="E.1 Structure of the atom (SL/HL)">
+          <div class="topic-header">
+            <h4>E.1 Structure of the atom (SL/HL)</h4>
+            <div class="progress"><div class="barfill"></div></div>
+          </div>
+          <ul class="check">
+            <li class="item"><input type="checkbox" id="e1-1"><label for="e1-1">Can I explain evidence from the <strong>Rutherford/Geiger–Marsden</strong> experiment for the nuclear model?</label></li>
+            <li class="item"><input type="checkbox" id="e1-2"><label for="e1-2">Can I relate line spectra to <strong>quantized energy levels</strong> (<span class="eq">E = hf</span>) and photon emission/absorption?</label></li>
+            <li class="item"><input type="checkbox" id="e1-3"><label for="e1-3">(HL) Can I use models such as <strong>Bohr</strong> to compute hydrogen energy levels (qualitatively if required)?</label></li>
+          </ul>
+        </div>
+
+        <!-- E.2 Quantum HL -->
+        <div class="topic" data-topic="E.2 Quantum physics (HL only)">
+          <div class="topic-header">
+            <h4>E.2 Quantum physics (HL only)</h4>
+            <div class="progress"><div class="barfill"></div></div>
+          </div>
+          <ul class="check">
+            <li class="item"><input type="checkbox" id="e2-1"><label for="e2-1">Can I apply the <strong>photoelectric equation</strong>: <span class="eq">E<sub>max</sub> = hf − Φ</span> (threshold frequency, stopping potential)?</label></li>
+            <li class="item"><input type="checkbox" id="e2-2"><label for="e2-2">Can I compute <strong>de Broglie wavelength</strong>: <span class="eq">λ = h/p</span> and discuss wave–particle duality?</label></li>
+            <li class="item"><input type="checkbox" id="e2-3"><label for="e2-3">Can I use the <strong>Compton shift</strong> relation qualitatively/quantitatively where required?</label></li>
+          </ul>
+        </div>
+
+        <!-- E.3 Radioactive decay (expanded) -->
+        <div class="topic" data-topic="E.3 Radioactive decay (SL/HL)">
+          <div class="topic-header">
+            <h4>E.3 Radioactive decay (SL/HL)</h4>
+            <div class="progress"><div class="barfill"></div></div>
+          </div>
+          <ul class="check">
+            <li class="item"><input type="checkbox" id="e3-1"><label for="e3-1">Can I classify and balance nuclear equations for <strong>α, β⁻, β⁺, γ</strong> emission and understand neutrino role?</label></li>
+            <li class="item"><input type="checkbox" id="e3-2"><label for="e3-2">Can I use decay law <span class="eq">N = N₀ e^{−λt}</span>, activity <span class="eq">A = λN</span>, and half-life <span class="eq">T₁/₂ = ln2/λ</span>?</label></li>
+            <li class="item"><input type="checkbox" id="e3-3"><label for="e3-3">(HL) Can I compute <strong>mass defect</strong> and <strong>binding energy</strong> from atomic masses using <span class="eq">E = Δmc²</span>?</label></li>
+          </ul>
+        </div>
+
+        <!-- E.4 Fission (expanded) -->
+        <div class="topic" data-topic="E.4 Fission (SL/HL)">
+          <div class="topic-header">
+            <h4>E.4 Fission (SL/HL)</h4>
+            <div class="progress"><div class="barfill"></div></div>
+          </div>
+          <ul class="check">
+            <li class="item"><input type="checkbox" id="e4-1"><label for="e4-1">Can I describe <strong>induced fission</strong>, <strong>chain reactions</strong>, and <strong>criticality</strong> qualitatively?</label></li>
+            <li class="item"><input type="checkbox" id="e4-2"><label for="e4-2">Can I explain roles of <strong>moderator</strong>, <strong>control rods</strong>, <strong>coolant</strong>, <strong>shielding</strong> in reactors?</label></li>
+            <li class="item"><input type="checkbox" id="e4-3"><label for="e4-3">Can I estimate <strong>energy release</strong> from mass differences in a fission reaction (order-of-magnitude)?</label></li>
+          </ul>
+        </div>
+
+        <!-- E.5 Fusion & stars (expanded) -->
+        <div class="topic" data-topic="E.5 Fusion and stars (SL/HL)">
+          <div class="topic-header">
+            <h4>E.5 Fusion and stars (SL/HL)</h4>
+            <div class="progress"><div class="barfill"></div></div>
+          </div>
+          <ul class="check">
+            <li class="item"><input type="checkbox" id="e5-1"><label for="e5-1">Can I explain <strong>fusion</strong> requirements (temperature, pressure, confinement) and Coulomb barrier concept?</label></li>
+            <li class="item"><input type="checkbox" id="e5-2"><label for="e5-2">Can I discuss stellar <strong>hydrostatic equilibrium</strong> (radiation pressure vs gravity)?</label></li>
+            <li class="item"><input type="checkbox" id="e5-3"><label for="e5-3">Can I outline stellar evolution tracks and interpret the <strong>H–R diagram</strong> (main sequence, giants, dwarfs)?</label></li>
+            <li class="item"><input type="checkbox" id="e5-4"><label for="e5-4">Can I link <strong>mass</strong> to stellar lifetime and end states (white dwarf, neutron star, black hole) qualitatively?</label></li>
+          </ul>
+        </div>
+
+      </div>
+    </details>
+
+    <!-- ================= Cross-cutting Skills / IA ================= -->
+    <details class="section">
+      <summary><span class="title">Core skills & IA readiness</span>
+        <span class="chips">
+          <span class="chip">Vectors & units</span>
+          <span class="chip">Uncertainties & graphs</span>
+          <span class="chip">Inquiry & evaluation</span>
+        </span>
+      </summary>
+      <div class="content">
+        <div class="topic" data-topic="Skills: Vectors, units, uncertainties, graphs, inquiry">
+          <div class="topic-header">
+            <h4>Skills in the study of physics</h4>
+            <div class="progress"><div class="barfill"></div></div>
+          </div>
+          <ul class="check">
+            <li class="item"><input type="checkbox" id="s-1"><label for="s-1">Can I draw vectors, resolve components, and produce correct <strong>free-body diagrams</strong>?</label></li>
+            <li class="item"><input type="checkbox" id="s-2"><label for="s-2">Do I use units, prefixes, sig-figs, dimensional checks consistently?</label></li>
+            <li class="item"><input type="checkbox" id="s-3"><label for="s-3">Can I calculate and propagate <strong>uncertainties</strong> (± form; %, fractional; operations and powers)?</label></li>
+            <li class="item"><input type="checkbox" id="s-4"><label for="s-4">Can I produce/edit graphs (linearize where appropriate), draw best fit, <strong>max/min gradient</strong>, and estimate gradient/intercept uncertainties?</label></li>
+            <li class="item"><input type="checkbox" id="s-5"><label for="s-5">Inquiry: Can I design valid methods, justify ranges & repeats, control variables, and evaluate limitations with realistic improvements?</label></li>
+          </ul>
+        </div>
+      </div>
+    </details>
+
+    <!-- Printable Kanban -->
+    <section id="kanban" aria-label="Review board">
+      <h2>IB Physics – Personal Kanban (by Topic Confidence)</h2>
+      <div class="kb-legend">Buckets: 0–40% → To Review · 41–70% → In Progress · 71–100% → Confident</div>
+      <div class="kb-grid">
+        <div class="kb-col" data-bucket="low"><h3>To Review (0–40%)</h3><div class="kb-items"></div></div>
+        <div class="kb-col" data-bucket="mid"><h3>In Progress (41–70%)</h3><div class="kb-items"></div></div>
+        <div class="kb-col" data-bucket="high"><h3>Confident (71–100%)</h3><div class="kb-items"></div></div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="foot">
+      <div class="metrics" id="overallMetric">0 of 0 complete</div>
+      <button class="btn ghost" id="clearTicks">Clear ticks (this device)</button>
+      <button class="btn ghost" id="collapseAll">Collapse All</button>
+    </div>
+  </footer>
+
+  <script>
+    // === Utility: debounce ===
+    const debounce = (fn, ms = 200) => { let t; return (...args)=>{ clearTimeout(t); t = setTimeout(()=>fn(...args), ms); } };
+
+    // === Local storage keys ===
+    const KEY_STATE = 'ib-phys-2025-checks-v1';
+    const KEY_CONF  = 'ib-phys-2025-conf-v1';
+
+    // === DOM refs ===
+    const container = document.getElementById('container');
+    const printBtn = document.getElementById('printBtn');
+    const clearBtn = document.getElementById('clearTicks');
+    const search = document.getElementById('search');
+    const toggleAllBtn = document.getElementById('toggleAll');
+    const collapseAllBtn = document.getElementById('collapseAll');
+    const overallMetric = document.getElementById('overallMetric');
+
+    // === Load/save state ===
+    function loadState(){ try{ return JSON.parse(localStorage.getItem(KEY_STATE) || '{}'); }catch(e){ return {}; } }
+    function saveState(state){ localStorage.setItem(KEY_STATE, JSON.stringify(state)); }
+
+    const confState = (()=>{ try{return JSON.parse(localStorage.getItem(KEY_CONF)||'{}')}catch(e){return{}} })();
+
+    // Build index of all checkboxes
+    const state = loadState();
+    const boxes = [...document.querySelectorAll('input[type="checkbox"]')];
+
+    // Restore ticks
+    boxes.forEach(b=>{ if(state[b.id]) b.checked = true; });
+
+    // Inject confidence meters into all topics
+    const topics = [...document.querySelectorAll('.topic')];
+
+    function slugify(str){return (str||'').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');}
+    function topicKey(el){ const h = el.querySelector('h4'); return h? slugify(h.textContent.trim()) : Math.random().toString(36).slice(2); }
+    function classByPct(p){ if(p<=40) return 'conf bad'; if(p<=70) return 'conf mid'; return 'conf good'; }
+
+    function addConfidenceUI(){
+      topics.forEach(topic=>{
+        const key = topicKey(topic);
+        topic.dataset.key = key;
+        const current = Number(confState[key] ?? 0);
+        const conf = document.createElement('div');
+        conf.className = classByPct(current);
+        conf.classList.add('conf');
+        conf.innerHTML = `<label>Confidence</label><input type="range" min="0" max="100" step="1" value="${current}"><span class="val">${current}%</span>`;
+        const header = topic.querySelector('.topic-header');
+        header.insertAdjacentElement('afterend', conf);
+        const range = conf.querySelector('input');
+        const val = conf.querySelector('.val');
+        range.addEventListener('input', ()=>{
+          const v = Number(range.value);
+          val.textContent = v+"%";
+          conf.className = classByPct(v);
+          conf.classList.add('conf');
+        });
+        range.addEventListener('change', ()=>{
+          const v = Number(range.value);
+          confState[key] = v; localStorage.setItem(KEY_CONF, JSON.stringify(confState));
+          updateOverallMetric();
+        });
+      });
+    }
+    addConfidenceUI();
+
+    // Persist on change
+    boxes.forEach(b=> b.addEventListener('change', () => {
+      state[b.id] = b.checked; saveState(state); updateTopicProgress(); updateOverallMetric();
+    }));
+
+    // Topic progress bars
+    function updateTopicProgress(){
+      document.querySelectorAll('.topic').forEach(topic =>{
+        const list = topic.querySelectorAll('input[type="checkbox"]');
+        const done = [...list].filter(b=>b.checked).length;
+        const total = list.length;
+        const pct = total? Math.round(100*done/total) : 0;
+        const bar = topic.querySelector('.barfill');
+        if(bar) bar.style.width = pct + '%';
+        topic.dataset.pct = pct;
+      });
+    }
+
+    function averageConfidence(){
+      const keys = Object.keys(confState);
+      if(!keys.length) return 0;
+      const sum = keys.reduce((s,k)=> s + Number(confState[k]||0), 0);
+      return Math.round(sum/keys.length);
+    }
+
+    // Override overall metric to include average confidence
+    function updateOverallMetric(){
+      const total = boxes.length; const done = boxes.filter(b=>b.checked).length;
+      const avgC = averageConfidence();
+      overallMetric.textContent = `${done} of ${total} complete • Avg confidence ${avgC}%`;
+    }
+
+    // Search filter
+    const performSearch = () => {
+      const q = search.value.trim().toLowerCase();
+      const topicsLocal = document.querySelectorAll('.topic');
+      topicsLocal.forEach(t => {
+        const text = (t.innerText || '').toLowerCase();
+        t.style.display = text.includes(q) ? '' : 'none';
+      });
+      document.querySelectorAll('details.section').forEach(sec=>{
+        const anyVisible = [...sec.querySelectorAll('.topic')].some(t=>t.style.display !== 'none');
+        sec.open = anyVisible;
+      });
+    };
+    search.addEventListener('input', debounce(performSearch, 120));
+
+    // Kanban builder
+    function buildKanban(){
+      const board = document.getElementById('kanban');
+      if(!board) return;
+      board.querySelectorAll('.kb-items').forEach(c=> c.innerHTML = '');
+      topics.forEach(topic=>{
+        const key = topic.dataset.key || topicKey(topic);
+        const title = (topic.querySelector('h4')?.textContent || 'Untitled').trim();
+        const confVal = Number(confState[key]||0);
+        const list = topic.querySelectorAll('input[type="checkbox"]');
+        const done = [...list].filter(b=>b.checked).length;
+        const total = list.length;
+        const item = document.createElement('div');
+        item.className = 'kb-item';
+        item.textContent = `${title} — ${confVal}% (✓ ${done}/${total})`;
+        const bucket = confVal<=40 ? 'low' : (confVal<=70 ? 'mid':'high');
+        board.querySelector(`.kb-col[data-bucket="${bucket}"] .kb-items`).appendChild(item);
+      });
+    }
+
+    // Print to PDF (build Kanban first)
+    const printAndBuild = () => { buildKanban(); setTimeout(()=>window.print(), 50); };
+    printBtn.addEventListener('click', printAndBuild);
+
+    // Clear ticks
+    clearBtn.addEventListener('click', () => {
+      if(!confirm('This will clear all ticks saved on this device. Continue?')) return;
+      boxes.forEach(b=>b.checked = false);
+      localStorage.removeItem(KEY_STATE);
+      updateTopicProgress();
+      updateOverallMetric();
+      buildKanban();
+    });
+
+    // Expand/Collapse
+    toggleAllBtn.addEventListener('click', () => {
+      document.querySelectorAll('details.section').forEach(d=> d.open = true);
+    });
+    collapseAllBtn.addEventListener('click', () => {
+      document.querySelectorAll('details.section').forEach(d=> d.open = false);
+    });
+
+    // Initial draws
+    updateTopicProgress();
+    updateOverallMetric();
+    buildKanban();
+  </script>
+</body>
+</html>
